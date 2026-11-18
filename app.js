@@ -184,13 +184,28 @@
         "</p></div>";
     } else
       html += requests
-        .map((r) =>
-          row(
+        .map((r) => {
+          // compute live loan status for this request
+          const rLoans = s.loans.filter((l) => l.req === r.id);
+          let statusBadge = "";
+          if (rLoans.length === 0) {
+            statusBadge = badge("Not issued");
+          } else {
+            const outstanding = rLoans.filter((l) => !l.back);
+            if (outstanding.length === 0) {
+              statusBadge = badge("Returned", true);
+            } else if (outstanding.length < rLoans.length) {
+              statusBadge = '<span class="tag warn">Partial return</span>';
+            } else {
+              statusBadge = badge("On loan");
+            }
+          }
+          return row(
             r.event,
             r.id + " · " + r.club,
-            btn("View form", "request", r.id),
-          ),
-        )
+            statusBadge + " " + btn("View form", "request", r.id),
+          );
+        })
         .join("");
     return html;
   }

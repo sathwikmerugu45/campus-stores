@@ -38,6 +38,8 @@ body > main {
   --mark: light-dark(#bd502f, #f2a585);
   --ok: light-dark(#e3f1e8, #2d4838);
   --oktxt: light-dark(#25523d, #bedac8);
+  --warn: light-dark(#c06000, #f0a040);
+  --warnbg: light-dark(#fff0d8, #3a2e18);
   background: var(--paper);
   color: var(--ink);
   font:
@@ -262,6 +264,10 @@ body > main {
 #campus-stores .good {
   background: var(--ok);
   color: var(--oktxt);
+}
+#campus-stores .warn {
+  background: var(--warnbg);
+  color: var(--warn);
 }
 #campus-stores .record {
   margin-top: 14px;
